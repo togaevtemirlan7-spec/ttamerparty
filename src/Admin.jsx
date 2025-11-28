@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import supabase from "../supabase";
+import { supabase } from "./supabase";
 
 export default function Admin() {
   const [guests, setGuests] = useState([]);
@@ -22,15 +22,15 @@ export default function Admin() {
           <div key={g.id} className="guest-card">
             <p><b>Имя:</b> {g.name}</p>
             <p><b>Возраст:</b> {g.age}</p>
-            <p><b>Instagram:</b> {g.instagram}</p>
+            <p><b>Instagram:</b> @{g.instagram}</p>
             <p><b>Пол:</b> {g.gender}</p>
             <p><b>Комментарий:</b> {g.comment}</p>
             <p><b>Дата:</b> {g.created_at}</p>
 
-            <img 
-              src={g.photo} 
-              alt="photo" 
-              style={{ width: "120px", borderRadius: "8px" }} 
+            <img
+              src={g.photo}
+              alt="photo"
+              style={{ width: "120px", borderRadius: "8px" }}
             />
           </div>
         ))}
