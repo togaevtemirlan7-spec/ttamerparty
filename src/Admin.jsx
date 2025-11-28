@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "./supabase";
+import supabase from "./supabase";
 
 export default function Admin() {
   const [guests, setGuests] = useState([]);
@@ -10,7 +10,14 @@ export default function Admin() {
 
   async function loadGuests() {
     const { data, error } = await supabase.from("guests").select("*");
-    if (!error) setGuests(data);
+
+    if (error) {
+      console.error("Ошибка загрузки гостей:", error);
+      alert("Ошибка: " + error.message);
+      return;
+    }
+
+    setGuests(data);
   }
 
   return (
@@ -23,13 +30,11 @@ export default function Admin() {
             <p><b>Имя:</b> {g.name}</p>
             <p><b>Возраст:</b> {g.age}</p>
             <p><b>Instagram:</b> @{g.instagram}</p>
-            <p><b>Пол:</b> {g.gender}</p>
-            <p><b>Комментарий:</b> {g.comment}</p>
             <p><b>Дата:</b> {g.created_at}</p>
 
             <img
               src={g.photo}
-              alt="photo"
+              alt="Фото"
               style={{ width: "120px", borderRadius: "8px" }}
             />
           </div>
